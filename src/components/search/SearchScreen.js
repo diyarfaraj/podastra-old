@@ -1,27 +1,36 @@
 import React, { useState } from "react";
-import { Box, Text } from "react-native-design-utility";
-import { StyleSheet, TextInput, FlatList, Image, View } from "react-native";
+import { Box } from "react-native-design-utility";
+import {
+  StyleSheet,
+  TextInput,
+  FlatList,
+  ActivityIndicator,
+} from "react-native";
 import { theme } from "../../constants/theme.js";
-//import api from "../../api/api.js";
+import SearchResults from "./SearchResults.js";
+import SearchEmpty from "./SearchEmpty.js";
 
 const SearchScreen = () => {
   const [term, setTerm] = useState("");
   const [results, setResults] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const api_url = `https://listen-api.listennotes.com/api/v2/search?q=${term}&sort_by_date=0&type=podcast&offset=0&len_min=10&len_max=30&genre_ids=68%2C82&published_before=1580172454000&published_after=0&only_in=title%2Cdescription&language=English&safe_mode=0"`;
+  const api_url = `https://listen-api.listennotes.com/api/v2/search?q=${term}&sort_by_date=0&type=podcast&offset=0&len_min=10&len_max=3000&published_before=1580172454000&published_after=0&language=English&safe_mode=0"`;
   const searchPodcasts = async () => {
+    setLoading(true);
     const response = await fetch(api_url, {
       method: "GET",
-      headers: { "X-ListenAPI-Key": `keyhere` },
+      headers: { "X-ListenAPI-Key": `heheh` },
     }).catch((error) => {
-      console.error("hehe fel", error);
+      console.error("opps error in fetching api", error);
       setErrorMessage("something went wrongg");
     });
     const data = await response.json();
 
     //console.log(data.results);
     setResults(data.results);
+    setLoading(false);
   };
 
   return (
@@ -37,24 +46,19 @@ const SearchScreen = () => {
         />
       </Box>
 
-      <FlatList
-        data={results}
-        keyExtractor={(res) => res.podcast_id}
-        renderItem={({ item }) => (
-          <Box h={90} dir="row" align="center" px="sm">
-            <Box h={70} w={70} bg="green" radius={10} mr={10} />
-            <Box>
-              <Text bold>{item.title_original}</Text>
-              <Text size="xs" color="grey">
-                {item.publisher_original}
-              </Text>
-              <Text size="xs" color="green">
-                {total_episodes}
-              </Text>
-            </Box>
-          </Box>
-        )}
-      />
+      {loading ? (
+        <Box f={1} center h={300}>
+          <ActivityIndicator size="large" color="#00ff00" />
+        </Box>
+      ) : (
+        <FlatList
+          data={results}
+          ListEmptyComponent={<SearchEmpty />}
+          contentContainerStyle={s.listContentContainer}
+          keyExtractor={(res) => res.title_original}
+          renderItem={({ item }) => <SearchResults item={item} />}
+        />
+      )}
     </Box>
   );
 };
@@ -68,6 +72,11 @@ const s = StyleSheet.create({
     paddingHorizontal: theme.space.sm,
     fontSize: theme.text.size.md,
   },
+  listContentContainer: {
+    minHeight: "100%",
+    paddingBottom: 90,
+  },
+
   list: {
     minHeight: "100%",
   },
