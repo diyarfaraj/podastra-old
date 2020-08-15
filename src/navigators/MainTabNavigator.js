@@ -4,6 +4,7 @@ import ListenNowScreen from "../components/listenNow/ListenNowScreen";
 import { createStackNavigator } from "@react-navigation/stack";
 import SearchScreen from "../components/search/SearchScreen";
 import LibraryScreen from "../components/library/LibraryScreen";
+import PodcastDetailsScreen from "../components/podcastDetails/PodcastDetailsScreen";
 
 const MainTab = createBottomTabNavigator();
 
@@ -27,6 +28,10 @@ const SearchStackNavigator = () => {
   return (
     <SearchStack.Navigator>
       <SearchStack.Screen name="Search" component={SearchScreen} />
+      <SearchStack.Screen
+        name="PodcastDetails"
+        component={PodcastDetailsScreen}
+      />
     </SearchStack.Navigator>
   );
 };

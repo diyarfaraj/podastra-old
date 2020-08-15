@@ -21,7 +21,7 @@ const SearchScreen = () => {
     setLoading(true);
     const response = await fetch(api_url, {
       method: "GET",
-      headers: { "X-ListenAPI-Key": `heheh` },
+      headers: { "X-ListenAPI-Key": `hehe` },
     }).catch((error) => {
       console.error("opps error in fetching api", error);
       setErrorMessage("something went wrongg");

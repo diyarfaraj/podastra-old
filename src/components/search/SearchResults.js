@@ -1,8 +1,12 @@
 import React from "react";
 import { StyleSheet, Image } from "react-native";
 import { Box, Text } from "react-native-design-utility";
+import { useNavigation } from "@react-navigation/native";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 const SearchResults = ({ item }) => {
+  const navigation = useNavigation();
+
   return (
     <Box h={110} dir="row" align="center" px="sm">
       <Image source={{ uri: item.image }} style={s.image} />
@@ -13,9 +17,13 @@ const SearchResults = ({ item }) => {
         <Text style={s.publisher} size="xs" color="grey">
           {item.publisher_original}
         </Text>
-        <Text style={s.episodesStyle} size="xs" color="green">
-          Episodes: {item.total_episodes}
-        </Text>
+        <TouchableOpacity
+          onPress={() => navigation.navigate("PodcastDetails", { data: item })}
+        >
+          <Text style={s.episodesStyle} size="xs" color="green">
+            Episodes: {item.total_episodes}
+          </Text>
+        </TouchableOpacity>
       </Box>
     </Box>
   );
