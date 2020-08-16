@@ -1,5 +1,7 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import FeatherIcon from "react-native-vector-icons/Feather";
+
 import ListenNowScreen from "../components/listenNow/ListenNowScreen";
 import { createStackNavigator } from "@react-navigation/stack";
 import SearchScreen from "../components/search/SearchScreen";
@@ -7,7 +9,7 @@ import LibraryScreen from "../components/library/LibraryScreen";
 import PodcastDetailsScreen from "../components/podcastDetails/PodcastDetailsScreen";
 
 const MainTab = createBottomTabNavigator();
-
+const ICON_SIZE = 24;
 const ListenNowStack = createStackNavigator();
 
 const ListenNowStackNavigator = () => {
@@ -49,15 +51,40 @@ const LibraryStackNavigator = () => {
 
 const MainTabNavigator = () => {
   return (
-    <MainTab.Navigator>
+    <MainTab.Navigator tabBarOptions={{ activeTintColor: "green" }}>
       <MainTab.Screen
         options={{ title: "Listen Now" }}
-        name="ListenNOww"
+        name="Listen Now"
         component={ListenNowStackNavigator}
+        options={{
+          tabBarIcon: (props) => (
+            <FeatherIcon
+              color={props.color}
+              size={ICON_SIZE}
+              name="headphones"
+            />
+          ),
+        }}
       />
 
-      <MainTab.Screen name="Library" component={LibraryStackNavigator} />
-      <MainTab.Screen name="Search" component={SearchStackNavigator} />
+      <MainTab.Screen
+        name="Library"
+        component={LibraryStackNavigator}
+        options={{
+          tabBarIcon: (props) => (
+            <FeatherIcon color={props.color} size={ICON_SIZE} name="inbox" />
+          ),
+        }}
+      />
+      <MainTab.Screen
+        name="Search"
+        component={SearchStackNavigator}
+        options={{
+          tabBarIcon: (props) => (
+            <FeatherIcon color={props.color} size={ICON_SIZE} name="search" />
+          ),
+        }}
+      />
     </MainTab.Navigator>
   );
 };

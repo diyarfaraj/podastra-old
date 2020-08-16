@@ -9,6 +9,7 @@ import {
 import { theme } from "../../constants/theme.js";
 import SearchResults from "./SearchResults.js";
 import SearchEmpty from "./SearchEmpty.js";
+import FeatherIcon from "react-native-vector-icons/Feather";
 
 const SearchScreen = () => {
   const [term, setTerm] = useState("");
@@ -21,7 +22,7 @@ const SearchScreen = () => {
     setLoading(true);
     const response = await fetch(api_url, {
       method: "GET",
-      headers: { "X-ListenAPI-Key": `hehe` },
+      headers: { "X-ListenAPI-Key": `ae87cec695cc4454a601639d06c9274a` },
     }).catch((error) => {
       console.error("opps error in fetching api", error);
       setErrorMessage("something went wrongg");
@@ -36,14 +37,26 @@ const SearchScreen = () => {
   return (
     <Box f={1} bg="white">
       <Box h={50} w="100%" mt="sm" px="sm" my="sm">
-        <TextInput
-          term={term}
-          onChangeText={setTerm}
-          style={s.input}
-          placeholder="Search podcasts"
-          selectionColor={theme.color.purpleDarkest}
-          onSubmitEditing={searchPodcasts}
-        />
+        <Box
+          dir="row"
+          align="center"
+          height={40}
+          bg="greyLightest"
+          radius={10}
+          px="sm"
+        >
+          <Box mr={10}>
+            <FeatherIcon name="search" size={20} color="grey" />
+          </Box>
+          <TextInput
+            term={term}
+            onChangeText={setTerm}
+            style={s.input}
+            placeholder="Search podcasts"
+            selectionColor={theme.color.purpleDarkest}
+            onSubmitEditing={searchPodcasts}
+          />
+        </Box>
       </Box>
 
       {loading ? (
@@ -65,11 +78,8 @@ const SearchScreen = () => {
 
 const s = StyleSheet.create({
   input: {
-    height: 40,
     flex: 1,
-    backgroundColor: theme.color.greyLightest,
-    borderRadius: 10,
-    paddingHorizontal: theme.space.sm,
+
     fontSize: theme.text.size.md,
   },
   listContentContainer: {

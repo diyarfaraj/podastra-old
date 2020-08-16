@@ -2,10 +2,10 @@ import React from "react";
 import { Box, Text } from "react-native-design-utility";
 import { FlatList } from "react-native-gesture-handler";
 import { StyleSheet, Image } from "react-native";
+import FeatherIcon from "react-native-vector-icons/Feather";
 
 const PodcastDetailsScreen = ({ route, navigation }) => {
   const currenPodcast = route.params;
-  console.log(currenPodcast);
   return (
     <Box f={1}>
       <FlatList
@@ -32,8 +32,14 @@ const PodcastDetailsScreen = ({ route, navigation }) => {
                 </Text>
               </Box>
             </Box>
-            <Box px="sm" mb="md">
-              <Text>Play last episonde</Text>
+            <Box px="sm" mb="md" dir="row" align="center">
+              <Box mr={10}>
+                <FeatherIcon size={20} name="play" color="green" />
+              </Box>
+              <Box>
+                <Text size="sm">Play</Text>
+                <Text size="sm">#300: Last episode</Text>
+              </Box>
             </Box>
 
             <Box mb="md" px="sm">
