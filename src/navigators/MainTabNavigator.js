@@ -31,6 +31,7 @@ const SearchStackNavigator = () => {
       <SearchStack.Screen
         name="PodcastDetails"
         component={PodcastDetailsScreen}
+        options={{ headerTitle: "" }}
       />
     </SearchStack.Navigator>
   );

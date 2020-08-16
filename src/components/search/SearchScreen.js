@@ -16,7 +16,7 @@ const SearchScreen = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const api_url = `https://listen-api.listennotes.com/api/v2/search?q=${term}&sort_by_date=0&type=podcast&offset=0&len_min=10&len_max=3000&published_before=1580172454000&published_after=0&language=English&safe_mode=0"`;
+  const api_url = `https://listen-api.listennotes.com/api/v2/search?q=${term}&sort_by_date=0&type=podcast&offset=0&language=English&safe_mode=0"`;
   const searchPodcasts = async () => {
     setLoading(true);
     const response = await fetch(api_url, {

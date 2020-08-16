@@ -18,7 +18,7 @@ const SearchResults = ({ item }) => {
           {item.publisher_original}
         </Text>
         <TouchableOpacity
-          onPress={() => navigation.navigate("PodcastDetails", { data: item })}
+          onPress={() => navigation.navigate("PodcastDetails", item)}
         >
           <Text style={s.episodesStyle} size="xs" color="green">
             Episodes: {item.total_episodes}
