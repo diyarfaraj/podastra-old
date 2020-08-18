@@ -14,7 +14,7 @@ const SearchResults = ({ item }) => {
         <Text numberOfLines={1} bold>
           {item.title_original}
         </Text>
-        <Text style={s.publisher} size="xs" color="grey">
+        <Text numberOfLines={1} style={s.publisher} size="xs" color="grey">
           {item.publisher_original}
         </Text>
         <TouchableOpacity

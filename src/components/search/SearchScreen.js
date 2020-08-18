@@ -29,7 +29,6 @@ const SearchScreen = () => {
     });
     const data = await response.json();
 
-    //console.log(data.results);
     setResults(data.results);
     setLoading(false);
   };
