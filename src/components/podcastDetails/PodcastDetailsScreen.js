@@ -4,6 +4,25 @@ import { FlatList } from "react-native-gesture-handler";
 import { StyleSheet, Image, ActivityIndicator } from "react-native";
 import FeatherIcon from "react-native-vector-icons/Feather";
 
+const getReadableDate = (date) => {
+  let d = new Date(date);
+  let realDate =
+    d.toLocaleString().substr(0, 10) + d.toLocaleString().substr(-5);
+  return realDate;
+};
+
+const getHoursAndMins = (d) => {
+  d = Number(d);
+  let h = Math.floor(d / 3600);
+  let m = Math.floor((d % 3600) / 60);
+  let s = Math.floor((d % 3600) % 60);
+
+  let hDisplay = h > 0 ? h + (h == 1 ? "hr, " : "hrs, ") : "";
+  let mDisplay = m > 0 ? m + (m == 1 ? "min " : "mins ") : "";
+
+  return hDisplay + mDisplay;
+};
+
 const PodcastDetailsScreen = ({ route, navigation }) => {
   const currenPodcast = route.params;
   const [loading, setLoading] = useState(false);
@@ -94,11 +113,14 @@ const PodcastDetailsScreen = ({ route, navigation }) => {
           renderItem={({ item }) => (
             <Box px="sm">
               <Text size="xs" color="grey">
-                date here
+                {getReadableDate(item.pub_date_ms)}
               </Text>
               <Text bold>{item.title}</Text>
               <Text size="sm" color="grey" numberOfLines={2}>
                 {item.description}
+              </Text>
+              <Text size="sm" color="grey" numberOfLines={2}>
+                {getHoursAndMins(item.audio_length_sec)}
               </Text>
             </Box>
           )}
